@@ -1,0 +1,26 @@
+Each cell's "emotional state" is expressed by an integer and a float -- the integer specifies the "ring" or basic emotion type that the cell's state belongs to, and the float is a parameter describing where along that ring the cell presently resides in "emotion space".
+
+"Traits" are objects which contain a set of conditions and an action. Cells have a parameter for each trait called "core" which determines how fundamental a trait is to the cell's personality -- 0 means the cell's only purpose in life is to perform this action, and 1 means it is either completely ambivalent to the action, or actively deplores performing it. These parameters are permanently modified each time an action is performed by subtracting a small amount from the core value for the performed action and adding a fraction of that amount to the core values of all the actions that could have been chosen, but weren't. E.g. when face with 5 choices action #2 is chosen, so it gets core -= 0.1 and actions #1,3-5 get core += 0.02.
+
+Traits are anchored to a particular location in emotion space. When it comes time for a cell to decide on an action to perform, it finds all traits within a certain radius from its current state in emotion space, ranks them based on personal core values, then starting with the lowest core value going up tests whether all of the conditions of a trait are satisfied. When the cell finds a trait that is completely satisfied, it performs the corresponding action, adjusts its core values, and change emotional state if necessary (traits have emotional shift which is applied after it is enacted -- should be small).
+
+In this way, the same action can be performed many different ways depending on state and core values. Or some more specific actions could be reachable only in a specific state with a specific history(!) -- in this case you would almost need to build a cell for a specific purpose, like a class almost. These states can also be somewhat unstable -- it could take several turns to get a cell into a state with certain core values and then "using" that state for the action it makes available could push the cell out of that state! In this way, "combos" could form which are basically strings of impulses you can give a cells which will cycle it through a set of states and thereby perform a cycle of actions over and over, as long as you keep up the impulses. Or maybe combos would form which don't require an impulse, meaning you let go of the axes and the cell naturally progresses through a cycle of states/actions on its own.
+
+"Flags" or "indices" are passed to the action after it has been chosen, and doesn't have an impact on anything else otherwise. This is interesting because usually impulse only indirectly affects action by modifying state, but in this way you can impact action through flags which the player may or may not even care about when setting up the impulse. Flags have to be prioritized by the player though, because for most actions some of the flags should improve the effect but some should also diminish, invalidate, or even reverse the effect. All of this should be displayed for each cell when actions are chosen/performed, perhaps in the selection order. Then all actions should happen "at the same time".
+
+Each ring has a function which takes in the impulse and the current state and returns the new state. Each ring has a set of points which have a name, kind of reference points, which will be useful when traversing from one ring to another. Maybe also take neighbor states as input to model crowd emotion? 
+
+Each ring also has a color function which maps the ring parameter to a display color for the cell. The character or display symbol is also defined by the ring, one per ring. This lets the player know without a doubt which ring the cell is on, but the exact state is a little hard to pin down, as is the case with real emotional states.
+
+
+QUESTIONS:
+    - What determines that radius? Maybe this should just be a fixed number, then the size or "circumference" of each ring can be varied to allow a larger or smaller set of traits be available to cells on those rings.
+    - What types of actions should I explore? What about meta-actions (actions which affect state or core values)? What about assist-style actions (cell sacrifices action to help fellow cell's action)
+    - How will these ring-state response functions work? Will moving from one ring to another be a standard process or will it also depend on the ring (e.g. having horm/pher levels at a certain point moves "up" a ring, some other horm/pher point moves "down" a ring).
+
+ACTION IDEAS:
+    - Project flags: save flags from last impulse and project them to random/all neighboring cells.
+
+
+
+
