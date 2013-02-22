@@ -1,5 +1,5 @@
-from ..cell.alien.alienhead import AlienHead
-from ..cell.alien.alien import Alien
+from ..cell.alienhead import AlienHead
+from ..cell.alien import Alien
 
 
 class Ship(object):
