@@ -2,12 +2,13 @@ import pygame
 from lib import pygcurse
 
 from src.util import signal
-from src.util.timer import Timer
 from src.util.hud import hud
 
 from src import ship
 
-WIDTH, HEIGHT, TITLE = 80, 40, 'Growth'
+from src.ring.impulse import Impulse
+
+WIDTH, HEIGHT, TITLE = 80, 40, 'Impulse'
 
 win = pygcurse.PygcurseWindow(WIDTH, HEIGHT, TITLE)
 win.autoupdate = False
@@ -23,10 +24,12 @@ hud = hud.HUD(win, 24, 1)
 
 this_ship = ship.generate_ship(win, 10, 12)
 
+signal.subscribe('update', hud.update)
+signal.subscribe('update', this_ship.update)
+signal.subscribe('update', win.update)
+
 while True:
-    hud.update()
-    this_ship.update()
-    win.update()
+    signal.emit('update')
 
     for e in pygame.event.get():
         if e.type == pygame.JOYBUTTONDOWN:

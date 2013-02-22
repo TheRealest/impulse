@@ -147,10 +147,6 @@ def get_discrete_axis(axis, buckets=NUM_BUCKETS, zero_tolerance=0.15):
     return buckets * sign
 
 
-def get_discrete_axes(buckets=NUM_BUCKETS, zero_tolerance=0.1):
-    pass
-
-
 signal.subscribe('buttonpressed', button_pressed)
 signal.subscribe('buttonreleased', button_released)
 signal.subscribe('axischanged', axis_changed)
