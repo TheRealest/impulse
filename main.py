@@ -30,6 +30,7 @@ signal.subscribe('update', win.update)
 
 while True:
     signal.emit('update')
+    Impulse()
 
     for e in pygame.event.get():
         if e.type == pygame.JOYBUTTONDOWN:

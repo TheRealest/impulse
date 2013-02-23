@@ -1,4 +1,5 @@
 from ..util import joy
+from flags import Flags
 
 
 class Impulse:
@@ -10,29 +11,17 @@ class Impulse:
 
         self.flags = Flags([self.hormone, self.pheromone, self.nerve, self.psychic])
 
+        print self.move, self.skip, self.radius
 
-class Flags:
-    def __init__(self, axes):
-        self.power, self.calm, self.focus, self.passion, self.discipline = True, True, True, True, True
+    def _move(self):
+        return self.nerve + self.psychic
 
-        sum, prev = 0, None
-        for a in axes:
-            if a < 0:
-                self.power = False
-            elif a > 0:
-                self.calm = False
+    def _skip(self):
+        return self.pheromone + 3
 
-            if a > 1 or a < -1:
-                self.discipline = False
+    def _radius(self):
+        return self.hormone + 4
 
-            sum += a
-            if prev == None:
-                prev = a
-            else:
-                if prev != a:
-                    self.passion = False
-        if sum != 0:
-            self.focus = False
-
-    def __str__(self):
-        return str(['Power', self.power, 'Calm', self.calm, 'Focus', self.focus, 'Passion', self.passion, 'Discipline', self.discipline])
+    move = property(_move)
+    skip = property(_skip)
+    radius = property(_radius)
