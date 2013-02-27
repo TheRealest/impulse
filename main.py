@@ -6,8 +6,6 @@ from src.util.hud import hud
 
 from src import ship
 
-from src.ring.impulse import Impulse
-
 WIDTH, HEIGHT, TITLE = 80, 40, 'Impulse'
 
 win = pygcurse.PygcurseWindow(WIDTH, HEIGHT, TITLE)
@@ -30,7 +28,6 @@ signal.subscribe('update', win.update)
 
 while True:
     signal.emit('update')
-    Impulse()
 
     for e in pygame.event.get():
         if e.type == pygame.JOYBUTTONDOWN:

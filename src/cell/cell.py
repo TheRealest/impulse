@@ -1,6 +1,6 @@
 class Cell:
-    def __init__(self, ship, fgcolor, bgcolor, char=''):
-        self.ship = ship
+    def __init__(self, level, fgcolor, bgcolor, char=''):
+        self.level = level
         self.fgcolor = fgcolor
         self.bgcolor = bgcolor
         self.char = char
@@ -8,7 +8,7 @@ class Cell:
         self.adjacent = set([])
 
     def update_adjacent(self):
-        self.adjacent = self.ship.get_neighboring_cells(self)
+        self.adjacent = self.level.get_neighboring_cells(self)
 
     def update(self):
         return self.char, self.fgcolor, self.bgcolor
